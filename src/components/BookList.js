@@ -5,11 +5,16 @@ import Read from "./Read";
 import WantToRead from "./WantToRead";
 
 const BookList = ({ allBooks, history }) => {
-  const currentlyReading = allBooks.filter(
-    (book) => book.shelf === "currentlyReading"
-  );
-  const wantToRead = allBooks.filter((book) => book.shelf === "wantToRead");
-  const read = allBooks.filter((book) => book.shelf === "read");
+
+  const filters = books => shelf => books.filter(book => book.shelf === shelf);
+  const filterBy = filters(allBooks);
+
+  const currentlyReading = filterBy("currentlyReading");
+  const wantToRead = filterBy("wantToRead");
+  const read = filterBy("read");
+
+  console.log("======>", allBooks);
+  
 
   const goToSearchPage = () => {
     history.push("/search");

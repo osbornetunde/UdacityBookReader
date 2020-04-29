@@ -7,10 +7,10 @@ class MainPage extends React.Component {
     allBooks: [],
   };
 
-  componentDidMount() {
-    BooksAPI.getAll().then((data) => {
-      this.setState({ allBooks: data });
-    });
+  async componentDidMount() {
+    const books = await BooksAPI.getAll()
+      this.setState({ allBooks: books });
+    
   }
 
   render() {

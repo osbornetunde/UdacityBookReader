@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import * as BooksAPI from "../BooksAPI";
-import SelectShelf from "../components/SelectShelf";
+import Book from "../components/Book";
 
 const Search = ({ history }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -57,36 +57,7 @@ const Search = ({ history }) => {
     ) : (
       results.map((result) => {
         return (
-          <li key={result.id}>
-            <div className="book">
-              <div className="book-top">
-                {result.imageLinks && result.imageLinks.thumbnail ? (
-                  <div
-                    className="book-cover"
-                    style={{
-                      width: 128,
-                      height: 192,
-                      backgroundImage: `url(${result.imageLinks.thumbnail})`,
-                    }}></div>
-                ) : (
-                  <div
-                    className="book-cover"
-                    style={{
-                      width: 128,
-                      height: 192,
-                    }}></div>
-                )}
-                <div className="book-shelf-changer">
-                  <SelectShelf book={result} />
-                </div>
-              </div>
-              <div className="book-title">{`${result.title}`}</div>
-              {result.authors &&
-                result.authors.map((author) => (
-                  <div className="book-authors" key={author}>{`${author}`}</div>
-                ))}
-            </div>
-          </li>
+          <Book result={result} key={result.id}/>
         );
       })
     );
