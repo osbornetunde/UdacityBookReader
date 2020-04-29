@@ -12,15 +12,17 @@ const SelectShelf = ({ book }) => {
       }
       updateData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shelf]);
 
   const shelfHandler = (e) => {
     e.preventDefault();
     setShelf(e.target.value);
   };
+  console.log(book.shelf);
 
   return (
-    <select onClick={(e) => shelfHandler(e)}>
+    <select defaultValue={book.shelf} onChange={(e) => shelfHandler(e)}>
       <option value="move" disabled>
         Move to...
       </option>
