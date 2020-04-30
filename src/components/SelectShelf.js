@@ -1,28 +1,8 @@
-import React, { useState, useEffect } from "react";
-import * as BooksAPI from "../BooksAPI";
+import React from "react";
 
-const SelectShelf = ({ book }) => {
-  const [shelf, setShelf] = useState("");
-
-  useEffect(() => {
-    if (shelf !== "") {
-      async function updateData() {
-        const response = await BooksAPI.update(book, shelf);
-        console.log("=====> result", response);
-      }
-      updateData();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shelf]);
-
-  const shelfHandler = (e) => {
-    e.preventDefault();
-    setShelf(e.target.value);
-  };
-  console.log(book.shelf);
-
+const SelectShelf = ({ book, shelfHandler }) => {
   return (
-    <select defaultValue={book.shelf} onChange={(e) => shelfHandler(e)}>
+    <select defaultValue={book.shelf} onChange={(e) => shelfHandler(e, book)}>
       <option value="move" disabled>
         Move to...
       </option>

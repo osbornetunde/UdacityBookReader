@@ -1,20 +1,19 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import CurrentlyReading from "./CurrentlyReading";
 import Read from "./Read";
 import WantToRead from "./WantToRead";
 
-const BookList = ({ allBooks, history }) => {
+const BookList = ({ allBooks, shelfHandler }) => {
+  const history = useHistory();
 
-  const filters = books => shelf => books.filter(book => book.shelf === shelf);
+  const filters = (books) => (shelf) =>
+    books?.filter((book) => book.shelf === shelf);
   const filterBy = filters(allBooks);
 
   const currentlyReading = filterBy("currentlyReading");
   const wantToRead = filterBy("wantToRead");
   const read = filterBy("read");
-
-  console.log("======>", allBooks);
-  
 
   const goToSearchPage = () => {
     history.push("/search");
@@ -27,9 +26,12 @@ const BookList = ({ allBooks, history }) => {
       </div>
       <div className="list-books-content">
         <div>
-          <CurrentlyReading currentlyReading={currentlyReading} />
-          <Read read={read} />
-          <WantToRead wantToRead={wantToRead} />
+          <CurrentlyReading
+            currentlyReading={currentlyReading}
+            shelfHandler={shelfHandler}
+          />
+          <Read read={read} shelfHandler={shelfHandler} />
+          <WantToRead wantToRead={wantToRead} shelfHandler={shelfHandler} />
         </div>
       </div>
       <div className="open-search">
@@ -39,4 +41,4 @@ const BookList = ({ allBooks, history }) => {
   );
 };
 
-export default withRouter(BookList);
+export default BookList;
